@@ -69,7 +69,20 @@ async function run() {
       res.send(jobs);
     });
 
-
+    app.post("/post-job", async (req, res) => {
+      const body = req.body;
+      body.createdAt = new Date();
+      console.log(body);
+      const result = await jobsCollection.insertOne(body);
+      if (result?.insertedId) {
+        return res.status(200).send(result);
+      } else {
+        return res.status(404).send({
+          message: "can not insert try again leter",
+          status: false,
+        });
+      }
+    });
 
     app.get("/getJobsByText/:text", async (req, res) => {
       const text = req.params.text;
