@@ -10,6 +10,7 @@ const { MongoClient, ServerApiVersion, ObjectId } = require("mongodb");
 //   "mongodb+srv://<username>:<password>@cluster0.ofkrvlo.mongodb.net/?retryWrites=true&w=majority";
 const uri = "mongodb://127.0.0.1:27017";
 // Create a MongoClient with a MongoClientOptions object to set the Stable API version
+
 const client = new MongoClient(uri, {
   serverApi: {
     version: ServerApiVersion.v1,
@@ -68,20 +69,7 @@ async function run() {
       res.send(jobs);
     });
 
-    app.post("/post-job", async (req, res) => {
-      const body = req.body;
-      body.createdAt = new Date();
-      console.log(body);
-      const result = await jobsCollection.insertOne(body);
-      if (result?.insertedId) {
-        return res.status(200).send(result);
-      } else {
-        return res.status(404).send({
-          message: "can not insert try again leter",
-          status: false,
-        });
-      }
-    });
+
 
     app.get("/getJobsByText/:text", async (req, res) => {
       const text = req.params.text;
