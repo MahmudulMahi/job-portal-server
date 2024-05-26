@@ -59,15 +59,7 @@ async function run() {
       res.send(jobs);
     });
 
-    app.get("/allJobsByCategory/:category", async (req, res) => {
-      console.log(req.params.id);
-      const jobs = await jobsCollection
-        .find({
-          status: req.params.category,
-        })
-        .toArray();
-      res.send(jobs);
-    });
+
 
     app.post("/post-job", async (req, res) => {
       const body = req.body;
