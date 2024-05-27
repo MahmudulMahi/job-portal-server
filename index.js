@@ -97,7 +97,21 @@ async function run() {
       res.send(result);
     });
 
-
+    app.put("/updateJob/:id", async (req, res) => {
+      const id = req.params.id;
+      const body = req.body;
+      console.log(body);
+      const filter = { _id: new ObjectId(id) };
+      const updateDoc = {
+        $set: {
+          title: body.title,
+          salary: body.salary,
+          category: body.category,
+        },
+      };
+      const result = await jobsCollection.updateOne(filter, updateDoc);
+      res.send(result);
+    });
   } finally {
     // Ensures that the client will close when you finish/error
     // await client.close();
