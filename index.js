@@ -27,10 +27,7 @@ async function run() {
     const db = client.db("jobPortal");
     const jobsCollection = db.collection("jobs");
     // Creating index on two fields
-    const indexKeys = { title: 1, category: 1 }; // Replace field1 and field2 with your actual field names
-    const indexOptions = { name: "titleCategory" }; // Replace index_name with the desired index name
-    const result = await jobsCollection.createIndex(indexKeys, indexOptions);
-    console.log(result);
+  
     console.log(
       "Pinged your deployment. You successfully connected to MongoDB!"
     );
