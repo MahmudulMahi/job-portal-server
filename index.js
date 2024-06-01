@@ -49,7 +49,15 @@ async function run() {
       res.send(jobs);
     });
 
-
+    app.get("/myJobs/:email", async (req, res) => {
+      console.log(req.params.id);
+      const jobs = await jobsCollection
+        .find({
+          postedBy: req.params.email,
+        })
+        .toArray();
+      res.send(jobs);
+    });
 
     app.get("/allJobsByCategory/:category", async (req, res) => {
       console.log(req.params.id);
