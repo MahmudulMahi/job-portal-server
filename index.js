@@ -84,18 +84,7 @@ async function run() {
       }
     });
 
-    app.get("/getJobsByText/:text", async (req, res) => {
-      const text = req.params.text;
-      const result = await jobsCollection
-        .find({
-          $or: [
-            { title: { $regex: text, $options: "i" } },
-            { category: { $regex: text, $options: "i" } },
-          ],
-        })
-        .toArray();
-      res.send(result);
-    });
+
 
     app.put("/updateJob/:id", async (req, res) => {
       const id = req.params.id;
