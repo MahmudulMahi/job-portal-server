@@ -59,15 +59,7 @@ async function run() {
       res.send(jobs);
     });
 
-    app.get("/allJobsByCategory/:category", async (req, res) => {
-      console.log(req.params.id);
-      const jobs = await jobsCollection
-        .find({
-          status: req.params.category,
-        })
-        .toArray();
-      res.send(jobs);
-    });
+
 
     app.post("/post-job", async (req, res) => {
       const body = req.body;
@@ -84,7 +76,18 @@ async function run() {
       }
     });
 
-
+    app.get("/getJobsByText/:text", async (req, res) => {
+      const text = req.params.text;
+      const result = await jobsCollection
+        .find({
+          $or: [
+            { title: { $regex: text, $options: "i" } },
+            { category: { $regex: text, $options: "i" } },
+          ],
+        })
+        .toArray();
+      res.send(result);
+    });
 
     app.put("/updateJob/:id", async (req, res) => {
       const id = req.params.id;
